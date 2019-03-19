@@ -42,6 +42,7 @@ import com.waz.zclient.controllers.navigation.{NavigationControllerObserver, Pag
 import com.waz.zclient.conversation.ConversationController
 import com.waz.zclient.core.stores.conversation.ConversationChangeRequester
 import com.waz.zclient.fragments.ConnectivityFragment
+import com.waz.zclient.Intents.RichIntent
 import com.waz.zclient.log.LogUI._
 import com.waz.zclient.messages.controllers.NavigationController
 import com.waz.zclient.pages.main.MainPhoneFragment
@@ -169,7 +170,7 @@ class MainActivity extends BaseActivity
   }
 
   def startFirstFragment(): Unit = {
-    verbose(l"startFirstFragment, intent: $getIntent")
+    verbose(l"startFirstFragment, intent: ${RichIntent(getIntent)}")
 
     val ssoToken = getIntent.ssoToken match {
       case None => Future.successful(None)
@@ -329,7 +330,7 @@ class MainActivity extends BaseActivity
 
   override protected def onNewIntent(intent: Intent) = {
     super.onNewIntent(intent)
-    verbose(l"onNewIntent: $intent")
+    verbose(l"onNewIntent: ${RichIntent(intent)}")
 
     if (IntentUtils.isPasswordResetIntent(intent)) onPasswordWasReset()
 
